@@ -7,6 +7,7 @@ trigger UpdateInventory on Product__c (after insert, after update){
         List<Order__c> orders = [SELECT Id, Quantity__c, Product__c FROM Order__c WHERE Product__c = :product.Id];
 
         for (Order__c line : orderlines) {
+            //recuperamos la cantidad de pedidos y le restamos la cantidad de ordenes que se han pedido.
             availableStock -= line.Quantity__c;
         }
 
